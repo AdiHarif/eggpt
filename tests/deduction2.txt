@@ -1,0 +1,12 @@
+Cats are afraid of wolves.
+Mice are afraid of cats.
+Sheep are afraid of mice.
+Gertrude is a cat.
+Wolves are afraid of sheep.
+Jessica is a mouse.
+Emily is a wolf.
+Winona is a cat.
+What is emily afraid of?
+What is emily afraid of?
+What is jessica afraid of?
+What is gertrude afraid of?
