@@ -1,0 +1,8 @@
+There are five boys in class: Joe, Jack, Abe, Carl and George.
+Each of the five boys like a school subject best. Use the following clues to find out the favorite subject of each boy.
+1. One of the boys likes Math
+2. Joe likes Reading better than any other subject.
+3. Neither Carl nor George enjoy Math.
+4. Abe's favorite subject is either Reading or Recess.
+5. George enjoys Writing.
+6. One of the boys like Science

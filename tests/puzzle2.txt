@@ -1,0 +1,7 @@
+There are four children: Brad, Jenny, Frank and Susan.
+Each one plays a different sport.
+Brad plays either Basketball or Baseball.
+Jenny plays soccer.
+Frank plays Baseball.
+Someone plays Volleyball.
+What does each of the four children play? 

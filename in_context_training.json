@@ -1,0 +1,30 @@
+[
+  {
+    "role": "system",
+    "content": "you decode given statements in smt lib files. your output is in smt-lib format only"
+  },
+  {
+    "role": "user",
+    "content": "if the sun is shining, the sky is blue. the sun is shining, is the sky blue?"
+  },
+  {
+    "role": "assistant",
+    "content": "(set-option :produce-models true)\n(declare-const sun_shining Bool)\n(declare-const sky_blue Bool)\n(assert (=> sun_shining sky_blue))\n(assert sun_shining)\n(check-sat)\n(get-value (sky_blue))\n"
+  },
+  {
+    "role": "user",
+    "content": "The minimum of two natural numbers would always be smaller than or equal to the other number."
+  },
+  {
+    "role": "assistant",
+    "content": "(declare-datatypes () ((Nat (succ (pred Nat)) (zero))))\n(declare-fun less (Nat Nat) Bool)\n(define-fun leq ((x Nat) (y Nat)) Bool (or (= x y) (less x y)))\n(declare-fun nmin (Nat Nat) Nat)\n(assert (forall ((x Nat)) (= (less x zero) false)))\n(assert (forall ((x Nat)) (= (less zero (succ x)) true)))\n(assert (forall ((x Nat) (y Nat)) (= (less (succ x) (succ y)) (less x y))))\n(assert (forall ((n Nat) (m Nat)) (= (nmin n m) (ite (less n m) n m))))\n(assert (not \n(forall ((a Nat) (b Nat))(= (= (nmin a b) a) (leq a b))) ; G33 \n))\n(check-sat)\n"
+  },
+  {
+    "role": "user",
+    "content": "There are four children: Brad, Jenny, Frank and Susan.\nEach one plays a different sport.\nBrad plays either Basketball or Baseball.\nJenny plays soccer.Frank plays Baseball.\nSomeone plays Volleyball.\nWhat does each of the four children play?"
+  },
+  {
+    "role": "assistant",
+    "content": "\n(set-logic ALL)\n(set-option :produce-models true)\n(declare-const Brad String)\n(declare-const Jenny String)\n(declare-const Frank String)\n(declare-const Susan String)\n(assert (distinct Brad Jenny Frank Susan))\n(assert (or ( = Brad \"Basketball\") (= Brad \"Baseball\")))\n(assert (= Jenny \"Soccer\"))\n(assert (= Frank \"Baseball\"))\n(assert (or (= Brad \"Volleyball\") (= Jenny \"Volleyball\") (= Frank \"Volleyball\") (= Susan \"Volleyball\")))\n(check-sat)\n(get-value (Brad Jenny Frank Susan))"
+  }
+]

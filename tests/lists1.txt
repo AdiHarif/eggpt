@@ -1,0 +1,1 @@
+Shortening a list of natural numbers twice is the same as shortening it once with the sum of the two lengths.
