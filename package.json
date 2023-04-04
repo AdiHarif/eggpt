@@ -1,7 +1,6 @@
 {
   "name": "gpt-logic",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -16,5 +15,17 @@
   "devDependencies": {
     "@types/node": "^18.15.11"
   },
-  "type": "module"
+  "type": "module",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AdiHarif/eggpt.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AdiHarif/eggpt/issues"
+  },
+  "homepage": "https://github.com/AdiHarif/eggpt#readme",
+  "description": ""
 }

@@ -1,15 +1,15 @@
 [
   {
     "role": "system",
-    "content": "you decode given statements in smt lib files. your output is in smt-lib format only"
+    "content": "You encode given statements and assertions in SMT-LIB files. Your output is in SMT-LIB format only"
   },
   {
     "role": "user",
-    "content": "if the sun is shining, the sky is blue. the sun is shining, is the sky blue?"
+    "content": "The suitcase fits inside the box.\nThe chocolate fits inside the box.\nThe container is bigger than the box of chocolates.\nThe container is bigger than the suitcase.\nThe box is bigger than the box of chocolates.\nThe container is bigger than the chocolate.\nThe chocolate fits inside the container.\nThe chocolate fits inside the suitcase.\nThe chocolate fits inside the chest.\nThe suitcase fits inside the container.\nDoes the box fit in the chocolate?\nIs the chocolate bigger than the box?\nDoes the box fit in the chocolate?\nDoes the box fit in the chocolate?\nIs the chocolate bigger than the box?"
   },
   {
     "role": "assistant",
-    "content": "(set-option :produce-models true)\n(declare-const sun_shining Bool)\n(declare-const sky_blue Bool)\n(assert (=> sun_shining sky_blue))\n(assert sun_shining)\n(check-sat)\n(get-value (sky_blue))\n"
+    "content": "(set-logic ALL)\n(set-option :produce-models true)\n; Datatype for problem representation\n(declare-datatypes ((Object 0)) (( (Chocolate) (Box) (Suitcase) (Container) (Chest) (BoxChocolates))))\n\n; Object either bigger or not\n(declare-fun bigger (Object Object) Bool)\n(assert (forall ((o1 Object)) (not (bigger o1 o1))))\n\n; Given information\n(assert (bigger Box Suitcase))\n(assert (bigger Box Chocolate))\n(assert (bigger Container BoxChocolates))\n(assert (bigger Container Suitcase))\n(assert (bigger Box BoxChocolates))\n(assert (bigger Container Chocolate))\n(assert (bigger Container Chocolate))\n(assert (bigger Suitcase Chocolate))\n(assert (bigger Chest Chocolate))\n(assert (bigger Container Suitcase))\n\n; bigger should be transitive\n(assert (forall ((o1 Object) (o2 Object) (o3 Object))\n  (=> (and (bigger o1 o2) (bigger o2 o3)) (bigger o1 o3))))\n\n; bigger should be asymmetric\n(assert (forall ((o1 Object) (o2 Object))\n  (=> (bigger o1 o2) (not (bigger o2 o1)))))\n\n(check-sat)\n(get-value ((bigger Chocolate Box) (bigger Chocolate Box)))"
   },
   {
     "role": "user",
@@ -25,6 +25,6 @@
   },
   {
     "role": "assistant",
-    "content": "\n(set-logic ALL)\n(set-option :produce-models true)\n(declare-const Brad String)\n(declare-const Jenny String)\n(declare-const Frank String)\n(declare-const Susan String)\n(assert (distinct Brad Jenny Frank Susan))\n(assert (or ( = Brad \"Basketball\") (= Brad \"Baseball\")))\n(assert (= Jenny \"Soccer\"))\n(assert (= Frank \"Baseball\"))\n(assert (or (= Brad \"Volleyball\") (= Jenny \"Volleyball\") (= Frank \"Volleyball\") (= Susan \"Volleyball\")))\n(check-sat)\n(get-value (Brad Jenny Frank Susan))"
+    "content": "(set-logic ALL)\n(set-option :produce-models true)\n; Datatype for problem representation\n(declare-datatypes ((Sport 0)) (( (Basketball) (Baseball) (Soccer) (Volleyball))))\n(declare-datatypes ((Child 0)) (( (Brad) (Jenny) (Frank) (Susan))))\n\n; Each child plays a different sport\n(declare-fun plays (Child) Sport)\n(assert (distinct (plays Brad) (plays Jenny) (plays Frank) (plays Susan)))\n\n; Given information\n(assert (or ( = (plays Brad) Basketball) (= (plays Brad) Baseball)))\n(assert (= (plays Jenny) Soccer))\n(assert (= (plays Frank) Baseball))\n(check-sat)\n(get-value ((plays Brad) (plays Jenny) (plays Frank) (plays Susan)))"
   }
 ]

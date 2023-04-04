@@ -1,0 +1,4 @@
+What is emily afraid of?	sheep	7 5
+What is emily afraid of?	sheep	7 5
+What is jessica afraid of?	cat	6 2
+What is gertrude afraid of?	wolf	4 1
